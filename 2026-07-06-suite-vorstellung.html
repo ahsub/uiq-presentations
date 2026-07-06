@@ -541,7 +541,7 @@ code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:
       f.innerHTML = '<span>UnderlyingIQ · Engineering-Vorstellung</span><span>'+(idx+1)+' / '+slides.length+'</span>';
       slides[idx].appendChild(f);
     }
-    if(location.hash !== '#'+(idx+1)) history.replaceState(null,'','#'+(idx+1));
+    try { if(location.hash !== '#'+(idx+1)) history.replaceState(null,'','#'+(idx+1)); } catch(_){}
   }
   function next(){ show(idx+1); }
   function prev(){ show(idx-1); }
@@ -575,8 +575,8 @@ code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:
     if(Math.abs(dx)>50){ (dx<0?next:prev)(); }
     tx=null;
   });
-  var initial = parseInt((location.hash||'#1').substring(1),10);
-  show(isNaN(initial)?0:initial-1);
+  var initial = 0; try { var m=(location.hash||'').match(/#(\d+)/); if(m) initial = parseInt(m[1],10)-1; } catch(_){}
+  show(isNaN(initial)?0:initial);
 })();
 </script>
 </body>
