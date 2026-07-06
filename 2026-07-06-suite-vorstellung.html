@@ -509,7 +509,90 @@ code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:
   </div>
 </section>
 
-<!-- 15: FRAGEN -->
+<!-- 15: UIQ-ROADMAP -->
+<section class="slide">
+  <div class="eyebrow">UIQ-Roadmap</div>
+  <h1>Phasen mit Reifekriterien — nicht Kalender.</h1>
+  <p>Jede Phase hat einen harten Übergang. Er wird nicht durch Datum ausgelöst, sondern durch eine messbare Metrik oder eine belegte Freigabe.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.4rem">
+    <div class="card" style="border-color:var(--green)">
+      <div class="label" style="color:var(--green)">Phase 0 · Läuft</div>
+      <h3 style="margin-top:.4rem">Fundament</h3>
+      <p style="font-size:14px;line-height:1.45">Track Record produktiv seit 02.07. — Halluzinations-Filter, FIN-Archiv, UI-Konsolidierung nach FFF.</p>
+      <p style="font-size:12px;color:var(--text3);margin-top:.6rem"><strong style="color:var(--text2)">Reifekriterium:</strong> erste hit30-fresh-Auswertung (~14.07.)</p>
+    </div>
+    <div class="card" style="border-color:var(--accent)">
+      <div class="label" style="color:var(--accent)">Phase 1 · Als Nächstes</div>
+      <h3 style="margin-top:.4rem">Geschlossene Beta</h3>
+      <p style="font-size:14px;line-height:1.45">Belastbare Metriken auf kleiner Beta-Tester-Gruppe. Feature-Konsolidierung, keine Neubauten.</p>
+      <p style="font-size:12px;color:var(--text3);margin-top:.6rem"><strong style="color:var(--text2)">Reifekriterium:</strong> stabile hit30-Trefferquote über mehrere Regime-Wechsel</p>
+    </div>
+    <div class="card" style="border-color:var(--violet)">
+      <div class="label" style="color:var(--violet)">Phase 2 · Parallel</div>
+      <h3 style="margin-top:.4rem">Kommerzialisierung</h3>
+      <p style="font-size:14px;line-height:1.45">BaFin-Prüfpfad, StBerG-Abgrenzung, Zahlungs­abwicklung, Impressum/Datenschutz — regulatorisch, nicht produktisch.</p>
+      <p style="font-size:12px;color:var(--text3);margin-top:.6rem"><strong style="color:var(--text2)">Reifekriterium:</strong> rechtliche Freigabepfade dokumentiert</p>
+    </div>
+    <div class="card" style="border-color:var(--amber)">
+      <div class="label" style="color:var(--amber)">Phase 3 · Q4 2026</div>
+      <h3 style="margin-top:.4rem">Launch &amp; Ausbau</h3>
+      <p style="font-size:14px;line-height:1.45">Vite/React-Migration (v2.0), Suite-Design-System, öffentliche Web-Präsenz. Ab hier i18n-Stufe 2 (englisches Europa).</p>
+      <p style="font-size:12px;color:var(--text3);margin-top:.6rem"><strong style="color:var(--text2)">Reifekriterium:</strong> belegter Track-Record als Launch-Asset</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Was das ausschließt:</strong> Keine Ankündigung eines Produkts, dessen Metrik nicht existiert. Kein Feature-Rollout gegen einen Wunschtermin. Wenn ein Kriterium sich verschiebt, verschiebt sich die Phase — nicht das Kriterium.
+  </div>
+</section>
+
+<!-- 16: SUITE-KONTEXT & DESIGN-TIMEFRAME -->
+<section class="slide">
+  <div class="eyebrow">Suite-Portfolio &amp; Design-Rollout</div>
+  <h1>Priorität ist Architektur, nicht Wunschliste.</h1>
+  <div class="cols">
+    <div>
+      <h3>Vier Module, eine Wirbelsäule</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.6rem">
+        <div class="card" style="border-color:var(--accent)">
+          <span class="tag b">Leitprojekt</span>
+          <h3 style="margin-top:.5rem;font-size:16px">UnderlyingIQ</h3>
+          <p style="font-size:13px;color:var(--text3);margin:.2rem 0 0">Absolute Build-Priorität. Track-Record-Uhr läuft.</p>
+        </div>
+        <div class="card">
+          <span class="tag g">Wartung</span>
+          <h3 style="margin-top:.5rem;font-size:16px">Refundex</h3>
+          <p style="font-size:13px;color:var(--text3);margin:.2rem 0 0">Steuer-Engine fertig (99/99 Tests). Kein Ausbau bis UIQ Phase 1.</p>
+        </div>
+        <div class="card">
+          <span class="tag a">Geparkt</span>
+          <h3 style="margin-top:.5rem;font-size:16px">Premium Options</h3>
+          <p style="font-size:13px;color:var(--text3);margin:.2rem 0 0">Multi-Leg + DE-Steuer. Wartet auf Publikations-Freigabe.</p>
+        </div>
+        <div class="card" style="border-color:var(--violet)">
+          <span class="tag v">Pipeline</span>
+          <h3 style="margin-top:.5rem;font-size:16px">GuidelineIQ</h3>
+          <p style="font-size:13px;color:var(--text3);margin:.2rem 0 0">KI + AWMF-Leitlinien + Arzt-Review-Gate. Brücke in die Medizin.</p>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--text3);margin-top:.8rem"><strong style="color:var(--text2)">Regel:</strong> Kapazität geht an die Priorität, nicht ans lauteste Modul. Bei Konflikt: Warnpflicht.</p>
+    </div>
+    <div>
+      <h3>Corporate Design &amp; Web-Präsenz — bewusst gekoppelt</h3>
+      <p style="font-size:15px">Farbsystem, Impressum, Datenschutz, Kontakt, FAQ, DE/EN-Struktur laufen als eigener Strang mit definiertem Timeframe. Wichtig: <em>nicht</em> jetzt in v1.x zurückbauen — der Rollout hängt sich an v2.0 ein, um Doppelarbeit zu vermeiden.</p>
+      <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.8rem">
+        <div class="card" style="padding:.7rem 1rem"><strong style="color:var(--green)">D0 · jetzt</strong> &nbsp; <span style="color:var(--text3);font-size:14px">Sammelbecken (Ideen, Kandidaten, FAQ-Rohstoff)</span></div>
+        <div class="card" style="padding:.7rem 1rem"><strong style="color:var(--accent)">D1 · ~Aug 2026</strong> &nbsp; <span style="color:var(--text3);font-size:14px">Konzept (Design-Tokens, Rechtsseiten-Muster, i18n-Struktur)</span></div>
+        <div class="card" style="padding:.7rem 1rem;border-color:var(--amber)"><strong style="color:var(--amber)">D2 · Q4 2026</strong> &nbsp; <span style="color:var(--text3);font-size:14px">Rollout mit UIQ v2.0 (Vite/React, Component-Library)</span></div>
+        <div class="card" style="padding:.7rem 1rem"><strong style="color:var(--violet)">D3 · 2027</strong> &nbsp; <span style="color:var(--text3);font-size:14px">Suite-weit (Refundex, PO, GuidelineIQ ziehen huckepack nach)</span></div>
+      </div>
+      <p style="font-size:12px;color:var(--text3);margin-top:.6rem;font-style:italic">Dokumentiert in SUITE.md §3.6/§3.7 (Meta-Repo UIQ-Suite)</p>
+    </div>
+  </div>
+</section>
+
+<!-- 17: FRAGEN -->
 <section class="slide">
   <div class="eyebrow">Diskussion</div>
   <h1 class="title" style="font-size:64px;margin-top:1.5rem">Fragen.</h1>
