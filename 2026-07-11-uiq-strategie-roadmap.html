@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UnderlyingIQ – Strategie & Roadmap · 11.07.2026</title>
+<style>
+:root{
+  --bg:#fafaf7; --bg2:#f2f2ec; --bg3:#e8e8e0;
+  --border:#dddad0; --border2:#c9c5b8;
+  --text:#181818; --text2:#4a4a4a; --text3:#7a7a7a;
+  --accent:#2563eb; --green:#16a34a; --red:#dc2626; --amber:#d97706; --violet:#7c3aed;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%;background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+section.slide{
+  position:absolute;inset:0;padding:6vh 8vw 8vh;overflow:auto;
+  opacity:0;pointer-events:none;transition:opacity .18s ease;
+  display:flex;flex-direction:column;
+}
+section.slide.active{opacity:1;pointer-events:auto}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-weight:600;margin-bottom:.6rem}
+h1{font-size:42px;line-height:1.12;font-weight:700;margin:0 0 .8rem;letter-spacing:-.01em}
+h1.title{font-size:56px}
+h2{font-size:15px;color:var(--text3);font-weight:500;margin:0 0 2.2rem;letter-spacing:.02em}
+h3{font-size:18px;font-weight:600;margin:.2rem 0 .6rem;color:var(--text)}
+p{font-size:19px;line-height:1.5;color:var(--text2);margin:.4rem 0}
+ul{padding-left:1.1rem;margin:.5rem 0}
+li{font-size:19px;line-height:1.55;color:var(--text2);margin:.35rem 0}
+li strong{color:var(--text)}
+.rule{height:1px;background:var(--border);margin:1rem 0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;flex:1;min-height:0}
+.cols-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.6rem}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem}
+.card .label{font-size:11px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:.5rem}
+.card .num{font-family:var(--mono);font-size:28px;color:var(--text);font-weight:600;letter-spacing:-.01em}
+.card .cap{font-size:13px;color:var(--text3);margin-top:.3rem}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:6px;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-weight:600;letter-spacing:.04em}
+.tag.g{color:var(--green);border-color:rgba(22,163,74,.4);background:rgba(22,163,74,.10)}
+.tag.b{color:var(--accent);border-color:rgba(37,99,235,.4);background:rgba(37,99,235,.09)}
+.tag.v{color:var(--violet);border-color:rgba(124,58,237,.4);background:rgba(124,58,237,.09)}
+.tag.a{color:var(--amber);border-color:rgba(217,119,6,.4);background:rgba(217,119,6,.10)}
+.tag.r{color:var(--red);border-color:rgba(220,38,38,.4);background:rgba(220,38,38,.09)}
+code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:var(--bg3);padding:1px 6px;border-radius:4px;border:1px solid var(--border)}
+.big-quote{font-size:32px;line-height:1.3;color:var(--text);font-weight:500;max-width:900px;letter-spacing:-.01em}
+.big-quote em{font-style:normal;color:var(--accent)}
+.small{font-size:14px;color:var(--text3)}
+.pill{display:inline-flex;align-items:center;gap:.4rem;padding:4px 10px;border-radius:20px;background:var(--bg3);border:1px solid var(--border2);font-size:12px;color:var(--text2)}
+.pill .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.pill.warn .dot{background:var(--amber)}
+.pill.err .dot{background:var(--red)}
+.arrow{color:var(--text3);font-family:var(--mono)}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:1.2rem;align-items:stretch}
+.flow .card{display:flex;flex-direction:column}
+.flow .arr{display:flex;align-items:center;font-size:28px;color:var(--text3);font-family:var(--mono)}
+.grid-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1rem}
+.callout{background:linear-gradient(135deg,rgba(37,99,235,.07),rgba(124,58,237,.07));border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:8px;padding:1rem 1.2rem;margin-top:1rem}
+.callout strong{color:var(--text)}
+.footer{position:absolute;left:8vw;right:8vw;bottom:2.4vh;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text3);letter-spacing:.06em;border-top:1px solid var(--border);padding-top:.7rem}
+.progress{position:absolute;left:0;top:0;height:2px;background:var(--accent);width:0;transition:width .2s ease}
+.hint{position:fixed;right:14px;bottom:12px;font-size:10px;color:var(--text3);opacity:.5}
+.hint:hover{opacity:1}
+
+/* Overview mode */
+.deck.overview{overflow:auto;height:100vh;padding:2rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;background:#eeeee8}
+.deck.overview section.slide{
+  position:relative;inset:auto;opacity:1;pointer-events:auto;
+  height:32vh;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:10px;
+  overflow:hidden;transform:scale(.98);transition:transform .12s;cursor:pointer;
+}
+.deck.overview section.slide:hover{transform:scale(1);border-color:var(--accent)}
+.deck.overview section.slide.active{border-color:var(--accent)}
+.deck.overview h1,.deck.overview h1.title{font-size:20px}
+.deck.overview h2{font-size:12px;margin-bottom:.4rem}
+.deck.overview p,.deck.overview li{font-size:12px}
+.deck.overview .footer{display:none}
+.deck.overview .progress{display:none}
+.deck.overview .card{padding:.5rem .6rem}
+.deck.overview .card .num{font-size:16px}
+.deck.overview .big-quote{font-size:14px}
+
+/* Print / PDF */
+@media print{
+  html,body{background:white;color:black}
+  .deck{position:static;height:auto;overflow:visible}
+  section.slide{position:relative;inset:auto;opacity:1;pointer-events:auto;
+    height:auto;min-height:98vh;page-break-after:always;padding:5vh 6vw;
+    color:#111;background:white;}
+  section.slide *{color:#111 !important}
+  .card{background:#f7f7f8 !important;border-color:#ddd !important}
+  .tag,.tag.g,.tag.b,.tag.v,.tag.a,.tag.r{background:#f0f0f2 !important;border-color:#ccc !important;color:#111 !important}
+  code,.mono{background:#f0f0f2 !important;border-color:#ddd !important}
+  .footer{position:static;color:#666 !important;border-color:#ddd !important}
+  .hint,.progress{display:none}
+  .callout{background:#f7f9ff !important;border-color:#c9d6f7 !important}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+<!-- 1: TITEL -->
+<section class="slide">
+  <div class="eyebrow">Strategie &amp; Roadmap · 11. Juli 2026</div>
+  <h1 class="title">UnderlyingIQ</h1>
+  <h2 style="font-size:24px;color:var(--text);font-weight:400;margin-top:.4rem">Was sich seit dem 06.07. verändert hat — und wie es weitergeht</h2>
+  <div style="margin-top:auto;display:flex;gap:.8rem;flex-wrap:wrap">
+    <span class="tag b">Single Source of Truth</span>
+    <span class="tag v">Deep-Reasoning-Makroanalyse</span>
+    <span class="tag g">Track-Record-Uhr läuft</span>
+    <span class="tag a">Ehrliche Datengrenzen als Prinzip</span>
+  </div>
+  <p style="margin-top:1rem;color:var(--text3);font-size:14px">underlyingiq.com · Dr. Axel Hildebrand · Version v297 · Aggregator v4.9 · Stand 10.07.2026</p>
+</section>
+
+<!-- 2: WAS SEIT MONTAG PASSIERT IST -->
+<section class="slide">
+  <div class="eyebrow">Seit der letzten Vorstellung</div>
+  <h1>Vier Tage, ein Leitmotiv: Kein Wert ohne Herkunft.</h1>
+  <p>Was am 06.07. als Prinzip vorgestellt wurde, ist diese Woche hart getestet worden — und zwar durch echte Funde, nicht durch Behauptung.</p>
+  <div class="cols" style="margin-top:1rem">
+    <div>
+      <h3>Was neu dazugekommen ist</h3>
+      <ul>
+        <li><strong>Single-Source-of-Truth-Snapshot</strong>: 17 Marktpreise (US/EU-Indizes, Rohstoffe, Krypto, Zinsen/FX) — eine Quelle für Frontend <em>und</em> KI-Prompt</li>
+        <li><strong>Makro-Kontext mit echtem Gedächtnis</strong>: Z-Scores/Perzentile über 252 Handelstage statt Rohwerten — „VIX bei 16" wird zu „VIX im 28. Perzentil des Jahres"</li>
+        <li><strong>Drei neue Fed/Kredit-Indikatoren</strong> via FRED (kostenlos, Regierungsquelle): High-Yield-Spread, US Net Liquidity, echte 10J-2J-Zinskurve</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Was aufgedeckt und korrigiert wurde</h3>
+      <ul>
+        <li>Ein Anti-Halluzinations-Modul war <strong>seit seiner Einführung nie aktiv</strong> (fehlender Ladepfad) — gefunden, gefixt</li>
+        <li>Ein Tippfehler im Code hat das Morning Briefing <strong>komplett blockiert</strong> — gefunden, gefixt, verifiziert</li>
+        <li>Zwei Rohstoff-Karten zeigten <strong>ETF-Kurse als Warenpreise</strong> aus (Lithium, Öl) — entfernt bzw. korrigiert</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>Der Punkt:</strong> Jeder dieser Funde kam aus echtem Testen, nicht aus Theorie — und jeder wurde behoben, bevor er in Produktion blieb.
+  </div>
+</section>
+
+<!-- 3: ARCHITEKTUR-ANALOGIE -->
+<section class="slide">
+  <div class="eyebrow">Architektur-Analogie · weiterhin gültig</div>
+  <h1>Dieselbe Pipeline wie in der KI-gestützten Bild­diagnostik.</h1>
+  <div class="flow" style="margin-top:1.4rem">
+    <div class="card"><div class="label">Schicht 1 — Deterministisch</div>
+      <p style="font-size:16px;margin:.4rem 0"><strong>Bildvor­verarbeitung</strong><br>(Kalibrierung, Normalisierung, Feature-Extraktion)</p>
+      <p style="font-size:14px;color:var(--text3);margin-top:auto">Reproduzierbar, mathematisch, ohne LLM.</p>
+    </div>
+    <div class="arr">→</div>
+    <div class="card"><div class="label">Schicht 2 — KI-Interpretation</div>
+      <p style="font-size:16px;margin:.4rem 0"><strong>Modell-Inferenz</strong><br>(CNN, Ranking, Wahrscheinlichkeiten)</p>
+      <p style="font-size:14px;color:var(--text3);margin-top:auto">Statistisch, mit Unsicherheit.</p>
+    </div>
+    <div class="arr">→</div>
+    <div class="card"><div class="label">Schicht 3 — Human/Verifikation</div>
+      <p style="font-size:16px;margin:.4rem 0"><strong>Arzt-Review</strong><br>(Freigabe, Rückkopplung, Auditlog)</p>
+      <p style="font-size:14px;color:var(--text3);margin-top:auto">Regulatorik-Gate, Haftungsgrenze.</p>
+    </div>
+  </div>
+  <div class="rule"></div>
+  <div class="flow">
+    <div class="card" style="border-color:var(--accent)"><div class="label" style="color:var(--accent)">UIQ Schicht 1</div>
+      <p style="font-size:16px;margin:.4rem 0"><strong>Aggregator</strong> (Python)<br>+ neu: Snapshot, Z-Scores, FRED-Makro, echte Zinskurve</p>
+      <p style="font-size:14px;color:var(--text3);margin-top:auto">Nächtlich, deterministisch, versionskontrolliert.</p>
+    </div>
+    <div class="arr">→</div>
+    <div class="card" style="border-color:var(--violet)"><div class="label" style="color:var(--violet)">UIQ Schicht 2</div>
+      <p style="font-size:16px;margin:.4rem 0"><strong>LLM-Layer</strong><br>3-Stufen-Reasoning (Regime→Vol/Sentiment→Breadth), strikt an Snapshot gebunden</p>
+      <p style="font-size:14px;color:var(--text3);margin-top:auto">Sprache, nicht Rechnung.</p>
+    </div>
+    <div class="arr">→</div>
+    <div class="card" style="border-color:var(--green)"><div class="label" style="color:var(--green)">UIQ Schicht 3</div>
+      <p style="font-size:16px;margin:.4rem 0"><strong>Track&nbsp;Record + BaFin-Gate</strong><br>Ex-post-Verifikation, Compliance-Split, Auditlog</p>
+      <p style="font-size:14px;color:var(--text3);margin-top:auto">Was zählt, ist der Nachweis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4: DEEP-REASONING MAKROANALYSE -->
+<section class="slide">
+  <div class="eyebrow">Neu diese Woche · Layer 1</div>
+  <h1>Aus Rohwerten wird Kontext — das ist der eigentliche Fortschritt.</h1>
+  <p>Eine Zahl ohne historischen Bezug ist keine Aussage. „SKEW: 150" sagt nichts. „SKEW im 75. Perzentil der letzten 252 Handelstage, während VVIX gleichzeitig im 8. Perzentil liegt" ist ein Signal.</p>
+  <div class="cols" style="margin-top:1rem">
+    <div>
+      <h3>Was der Aggregator jetzt zusätzlich liefert</h3>
+      <ul>
+        <li><strong>Z-Scores + Perzentile</strong> für VIX, VVIX, SKEW, VIX-Ratio — über 252 Handelstage, nicht 28</li>
+        <li><strong>SKEW/VVIX-Divergenz-Detektor</strong>: erkennt automatisch, wenn institutionelles Tail-Hedging bei scheinbar ruhiger Oberfläche läuft</li>
+        <li><strong>MOVE Index</strong> — das Renten-Pendant zum VIX, oft übersehen</li>
+        <li><strong>US Net Liquidity</strong> (Fed-Bilanz − TGA − Reverse Repo) mit 4-Wochen-Trend</li>
+        <li><strong>Echte 10J-2J-Zinskurve</strong> via FRED (Constant-Maturity-Renditen) statt fragiler Yahoo-Ticker-Näherung</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card">
+        <div class="label">Gefundenes Signal, 09.07.</div>
+        <p style="font-size:16px;margin-top:.4rem"><strong>SKEW/VVIX-Divergenz: +1.79 → Warnung</strong></p>
+        <p style="font-size:14px;color:var(--text3);margin-top:.4rem">VVIX im 8. Perzentil (sehr ruhig), SKEW im 75. Perzentil (erhöht) — genau die Kombination, die auf verstecktes institutionelles Hedging hindeutet, ohne dass die Oberfläche unruhig wirkt.</p>
+      </div>
+      <div class="callout" style="margin-top:1rem">
+        <strong>Warum das zählt:</strong> Genau diese Art von Kontext fehlte bislang — die KI bekam Zahlen, aber keinen Maßstab, ob eine Zahl hoch oder niedrig <em>für dieses Jahr</em> ist.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5: EHRLICHE DATENGRENZEN ALS ARCHITEKTUR -->
+<section class="slide">
+  <div class="eyebrow">Diese Woche entdeckt · Kern-Kapitel</div>
+  <h1>Wenn eine Zahl aussieht wie ein echtes Signal, aber keins ist.</h1>
+  <div class="cols">
+    <div>
+      <h3>Der Fund</h3>
+      <p>Der Dark-Pool-Tab zeigte eine „DIX-Proxy"-Kennzahl mit Prozentwert und Pfeil — sah aus wie eine echte Kennzahl für institutionellen Dark-Pool-Flow. War sie nicht: eine aus SPY-Volumen/OBV konstruierte Heuristik, bewusst auf einen plausibel wirkenden Wertebereich skaliert, ohne jede mathematische Beziehung zu echten Dark-Pool-Daten.</p>
+      <p style="margin-top:.6rem">Sie floss zu <strong>50%</strong> in den angezeigten „Dark-Pool-Score" ein — und in den Morning-Briefing-Prompt.</p>
+    </div>
+    <div>
+      <h3>Die Entscheidung (statt stiller Reparatur)</h3>
+      <ul>
+        <li><strong>Aus KI-Prompts entfernt</strong> — Morning Briefing und Dark-Pool-Analyse bekommen nur noch die zwei methodisch legitimen Komponenten (Put/Call-Proxy aus VVIX/SKEW, VIX-Termstruktur)</li>
+        <li><strong>UI-Label korrigiert</strong>: „Volumen-Heuristik (kein echter DIX/GEX)" statt „DIX-Proxy" — bleibt sichtbar, aber ehrlich benannt</li>
+        <li><strong>Gewichtung von 50% auf 15%</strong> gesenkt</li>
+        <li><strong>Migrationspfad dokumentiert</strong>: echter SqueezeMetrics-Feed sobald finanzierbar</li>
+      </ul>
+      <div class="callout">
+        <strong>Genau das ist der Anspruch:</strong> nicht behaupten, es gäbe keine Lücken — sondern jede Lücke benennen, einordnen und dokumentieren, wo der echte Ersatz kommt.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6: WEITERE FUNDE DIESE WOCHE -->
+<section class="slide">
+  <div class="eyebrow">QA-Praxis, konkret</div>
+  <h1>Sechs Funde, sechs Fixes, ein Muster.</h1>
+  <div class="cols">
+    <div>
+      <h3>Stille Fehler, laut gefunden</h3>
+      <ul>
+        <li><strong>Anti-Halluzinations-Modul inaktiv</strong> — Skript-Tag fehlte seit Einführung, Modul lud nie. Niemand hatte es bemerkt, weil der Rest der Kette weiterlief.</li>
+        <li><strong>Doppeltes Komma im Code</strong> erzeugte eine unsichtbare Datenlücke, die das komplette Morning Briefing zum Absturz brachte — reproduzierbar, aber nicht offensichtlich aus der Fehlermeldung.</li>
+        <li><strong>Fehlgeschlagener KI-Versuch wurde als „erfolgreich" gecacht</strong> — der Fehlertext landete in demselben Feld wie ein echtes Ergebnis.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Falsch benannte, aber echte Daten</h3>
+      <ul>
+        <li><strong>USO-ETF als „WTI Öl"</strong> gelabelt — echter Kurs, falsches Instrument (Rollverluste verzerren die Zahl strukturell)</li>
+        <li><strong>Zinskurve nutzte falschen Ticker</strong> für die 2-Jahres-Rendite (tatsächlich 5-Jahres-Index) — jetzt durch echte FRED-Daten ersetzt</li>
+        <li><strong>Toter Rohstoff-Ticker</strong> (Lumber) zeigte seit jeher nichts an — entfernt statt weiter stillschweigend leer zu lassen</li>
+      </ul>
+      <div class="callout" style="margin-top:.8rem">
+        <strong>Gemeinsamkeit:</strong> Keiner dieser Fehler war offensichtlich beim ersten Hinsehen. Jeder wurde durch konkretes Testen sichtbar — genau der Prozess, den wir am 06.07. beschrieben haben.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7: TRACK RECORD — STATUS -->
+<section class="slide">
+  <div class="eyebrow">Layer 3 — Verifikation · Status-Update</div>
+  <h1>Track Record: Die Uhr läuft, noch keine Zahl.</h1>
+  <div class="cols">
+    <div>
+      <p>Unverändert zum 06.07.: Jede Empfehlung wird mit Zeitstempel, Ticker, Score, Regime und Setup­klasse geloggt. Nach Reife des Horizonts wird gegen den <em>tatsächlichen</em> Marktverlauf ausgewertet.</p>
+      <p style="margin-top:.8rem">Seit letzter Woche zusätzlich klar dokumentiert: Horizonte sind 7/30/90 Handelstage <strong>plus</strong> 3-Tage-Puffer (EU-Feiertags-Sicherheit) — das erklärt, warum die erste Auswertung nicht schon nach exakt 7 Kalendertagen kommt.</p>
+    </div>
+    <div>
+      <div class="grid-metrics" style="grid-template-columns:1fr 1fr">
+        <div class="card"><div class="label">Tag 0</div><div class="num">02.07.26</div><div class="cap">Track Record läuft</div></div>
+        <div class="card"><div class="label">Heute</div><div class="num">7 Tage</div><div class="cap">von min. 10 Handelstagen bis H7-Auswertung</div></div>
+        <div class="card"><div class="label">Erste Auswertung</div><div class="num">~16.07.</div><div class="cap">wenn H7-Fenster reift</div></div>
+        <div class="card"><div class="label">Backups</div><div class="num">wöchentlich</div><div class="cap">laufen planmäßig</div></div>
+      </div>
+      <div class="callout">
+        <strong>Unverändert ehrlich:</strong> Vor dem 16.07. gibt es <em>keine</em> Track-Record-Zahl. Das war vor vier Tagen so, das ist heute so.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8: STRATEGIE-AMPEL — 11 STATT 5 -->
+<section class="slide">
+  <div class="eyebrow">Sichtbare Verbesserung · Live im Programm</div>
+  <h1>Von 5 auf 11 Strategien — und eine dritte Farbe.</h1>
+  <div class="cols">
+    <div>
+      <p>Die Strategie-Ampel zeigte bislang nur 5 der 11 im System hinterlegten Strategien korrekt an — Wheel, Weekly Income, Value, Dividende, ATM/NA, KO-Zertifikat und Fading Short fehlten in der Anzeige oder zeigten Platzhalter.</p>
+      <p style="margin-top:.6rem">Zusätzlich: binäres Grün/Rot wurde durch eine echte <strong>3-Stufen-Ampel</strong> ersetzt (🟢 bevorzugt · 🟡 situativ möglich · 🔴 heute pausieren) — abgeleitet aus einer expliziten 3-Stufen-Logik (Regime → Volatilität/Sentiment → Marktbreite).</p>
+    </div>
+    <div>
+      <div class="card">
+        <div class="label">Heutiges Regime-Beispiel (NEUTRAL)</div>
+        <p style="font-size:14px;margin-top:.6rem">🟡 Momentum · 🟡 Swing · 🟡 CSP/Wheel · 🟡 Weekly Income · 🟡 Dividende · 🟡 Value · 🟡 ATM/NA</p>
+        <p style="font-size:14px">🔴 Breakout · 🔴 KO-Zertifikat · 🟡 Mean Rev. · 🔴 Fading Short</p>
+        <p style="font-size:12px;color:var(--text3);margin-top:.6rem">→ Selektiv vorgehen · Nur höchste Qualität · Kein Leverage</p>
+      </div>
+      <div class="callout" style="margin-top:1rem">
+        <strong>Warum das mehr ist als Kosmetik:</strong> Jede Strategie hat jetzt eine konkrete, aus Messwerten abgeleitete Begründung (Tooltip) — keine geratenen Ampel-Farben mehr.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9: ZUVERLÄSSIGKEIT DER PIPELINE -->
+<section class="slide">
+  <div class="eyebrow">Betriebssicherheit</div>
+  <h1>Wenn der nächtliche Lauf zweimal ausbleibt.</h1>
+  <div class="cols">
+    <div>
+      <p>GitHub Actions' eigener Zeitplan-Trigger läuft explizit auf „Best Effort"-Basis — ohne Garantie und ohne Fehlermeldung bei Ausfall. Genau das ist zweimal in Folge passiert (Nacht 08./09.07. und 09./10.07.).</p>
+      <p style="margin-top:.6rem">Beide Male manuell nachgeholt, kein Datenverlust — aber ein struktureller Zuverlässigkeits­punkt, kein Zufall.</p>
+    </div>
+    <div>
+      <h3>Lösung: redundanter Trigger</h3>
+      <ul>
+        <li>Neuer Cloudflare-Worker mit eigenem Cron-Trigger (identischer Zeitplan, 03:37 UTC)</li>
+        <li>Ruft den GitHub-Workflow zuverlässig per API auf — Cloudflare-Cron-Trigger sind für genau diesen Zweck gebaut</li>
+        <li>GitHub-Zeitplan bleibt als Fallback bestehen — doppelter Lauf im Zweifel unschädlich</li>
+      </ul>
+      <div class="callout">
+        <strong>Status:</strong> Code fertig, Deployment steht kurz bevor. Kein Blocker für die heutige Vorstellung, aber der nächste konkrete Schritt.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10: AUSBLICK — PATTERN/ENTRY ENGINE -->
+<section class="slide">
+  <div class="eyebrow">Strategie-Ausblick · Explorationsphase</div>
+  <h1>Ein neuer Baustein: von der Auswahl zur Ausführungs­entscheidung.</h1>
+  <div class="cols">
+    <div>
+      <p>UIQ beantwortet heute: <em>welche</em> Underlyings sind interessant (Regime, Sektor-Stärke, Minervini/SEPA-Setup). Was noch fehlt: <em>wann genau</em> einsteigen, mit welcher Positionsgröße, bei welchem Stop.</p>
+      <p style="margin-top:.6rem">Ausgangspunkt: acht Pine-Script-Indikatoren aus einer fachlichen Prüfung diese Woche — Methodik seriös (Minervini-Trend-Template, Weinstein-Stufen, VCP/Pocket-Pivot/Darvas-Mustererkennung), aber als Einzelscripte ohne automatisierte Verkettung.</p>
+    </div>
+    <div>
+      <h3>Was UIQ davon übernimmt</h3>
+      <ul>
+        <li><strong>Pattern-Erkennung</strong> (VCP, Pocket Pivot, Darvas Box) — UIQ-Neuland, ergänzt die bestehende Minervini-Näherung um Präzision</li>
+        <li><strong>Entry-Timing-Score</strong> mit konkretem Einstiegspreis-Vorschlag</li>
+        <li>Beide bereits als Python-Funktionen portiert und gegen Testdaten verifiziert — <strong>noch nicht</strong> in den produktiven Scan eingehängt</li>
+      </ul>
+      <div class="callout">
+        <strong>Bewusst nicht heute scharfgeschaltet:</strong> Erst nach dieser Vorstellung wird entschieden, wie die Integration in den bestehenden Scan aussieht — kein Feature-Rollout unter Zeitdruck.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11: LLM-LAYER — WO ER HELFEN DARF -->
+<section class="slide">
+  <div class="eyebrow">Layer 2 — weiterhin: Der LLM darf reden, nicht rechnen</div>
+  <h1>Die Trennung ist diese Woche schärfer geworden.</h1>
+  <div class="cols">
+    <div>
+      <h3 style="color:var(--green)">Wozu wir Claude nutzen</h3>
+      <ul>
+        <li><strong>3-Stufen-Reasoning</strong>: Regime/Trend → Volatilität/Sentiment → Marktbreite/Sektor — explizit im Prompt vorgegeben, nicht dem Modell überlassen</li>
+        <li><strong>Ranking mit Begründung</strong>, Morning Briefing, Sprachvarianten (Anfänger/Experte)</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color:var(--red)">Wozu explizit <em>nicht</em></h3>
+      <ul>
+        <li><strong>DIX/GEX</strong> — dürfen in keinem Prompt mehr erwähnt werden, wenn keine echten Daten vorliegen (statt „vermutlich niedrig" zu raten)</li>
+        <li>Zahlen, Kursziele, Kennzahlen erfinden — unverändert</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>Prompt-Kontrakt, verschärft:</strong> Fehlende Datenpunkte werden jetzt explizit als „n/v — niemals einen Wert schätzen" instruiert, nicht nur implizit erwartet. Diese Woche zeigte: implizite Erwartung reicht nicht, es braucht die explizite Anweisung <em>und</em> die technische Absicherung (Datenpunkt gar nicht erst in den Prompt aufnehmen).
+  </div>
+</section>
+
+<!-- 12: LIVE-SICHTPUNKTE -->
+<section class="slide">
+  <div class="eyebrow">Live-Demo Anker</div>
+  <h1>Was ihr heute zusätzlich seht.</h1>
+  <div class="cols-3" style="margin-top:1rem">
+    <div class="card">
+      <div class="label">Home-Tab</div>
+      <h3 style="margin-top:.6rem">4-Spalten Marktaktivität</h3>
+      <p style="font-size:15px">Aktivste, Volumen, Winner, Loser direkt auf der Übersicht — kein Modal mehr nötig.</p>
+    </div>
+    <div class="card">
+      <div class="label">Strategie-Ampel</div>
+      <h3 style="margin-top:.6rem">11 Strategien, 3 Farben</h3>
+      <p style="font-size:15px">Jede Farbe mit Tooltip-Begründung aus echten Messwerten, nicht geraten.</p>
+    </div>
+    <div class="card">
+      <div class="label">Morning Briefing</div>
+      <h3 style="margin-top:.6rem">Snapshot + Z-Scores sichtbar</h3>
+      <p style="font-size:15px">Zinskurve, Net Liquidity, MOVE Index, SKEW/VVIX-Divergenz — alles neu, alles mit Quellenangabe.</p>
+    </div>
+    <div class="card">
+      <div class="label">Dark-Pool-Tab</div>
+      <h3 style="margin-top:.6rem">Ehrlich umbenannt</h3>
+      <p style="font-size:15px">„Volumen-Heuristik" statt „DIX-Proxy" — sichtbares Beispiel für den heutigen Vortrags-Schwerpunkt.</p>
+    </div>
+    <div class="card">
+      <div class="label">Scanner-Tab</div>
+      <h3 style="margin-top:.6rem">Aufgeräumt, konsistent</h3>
+      <p style="font-size:15px">Zeitrahmen-Leiste, Eigener-Ticker-Eingabe und Winners/Losers neu positioniert nach FFF-Prinzip.</p>
+    </div>
+    <div class="card">
+      <div class="label">Backlog-Tab</div>
+      <h3 style="margin-top:.6rem">Weiterhin: keine Vaporware</h3>
+      <p style="font-size:15px">Neuer Punkt: Kommunikation von Score-Widersprüchen (MSE vs. IOS Market) — dokumentiert, nicht versteckt.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 13: SUITE-KONTEXT -->
+<section class="slide">
+  <div class="eyebrow">Portfolio-Kontext · unverändert gültig</div>
+  <h1>UIQ bleibt Leitprojekt — die Priorität hat sich nicht verschoben.</h1>
+  <div class="cols">
+    <div>
+      <div class="card">
+        <span class="tag b">Leitprojekt · Priorität absolut</span>
+        <h3 style="margin-top:.6rem">UnderlyingIQ</h3>
+        <p style="font-size:15px">Diese Woche vollständig auf Datenqualität und Zuverlässigkeit fokussiert — bewusst keine neuen Features auf Kosten der Grundlage.</p>
+      </div>
+      <div class="card" style="margin-top:.8rem">
+        <span class="tag g">Wartungsmodus</span>
+        <h3 style="margin-top:.6rem">Refundex</h3>
+        <p style="font-size:15px">Unverändert: 99/99 Tests grün, kein Ausbau bis UIQ Phase 1 erreicht ist.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <span class="tag a">Geparkt</span>
+        <h3 style="margin-top:.6rem">Premium Options</h3>
+        <p style="font-size:15px">Unverändert wartend auf Publikations-Freigabe.</p>
+      </div>
+      <div class="card" style="margin-top:.8rem;border-color:var(--violet)">
+        <span class="tag v">Pipeline · Brücke zur Praxis</span>
+        <h3 style="margin-top:.6rem">GuidelineIQ</h3>
+        <p style="font-size:15px">Unverändert in Vorbereitung — dieselbe Strict-Extraction-Architektur wie UIQ, andere Domäne.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14: OFFENE PUNKTE / EHRLICHE GRENZEN -->
+<section class="slide">
+  <div class="eyebrow">Was noch offen ist</div>
+  <h1>Was ich <em>heute</em> nicht behaupte.</h1>
+  <div class="cols">
+    <div>
+      <ul>
+        <li><strong>Kein Track Record vor dem 16.07.</strong> Die Uhr läuft seit 02.07.; 7 von mindestens 10 Handelstagen bis zur ersten Auswertung sind um.</li>
+        <li><strong>DIX/GEX bleiben Heuristik.</strong> Bewusst offengehalten, bis ein echter SqueezeMetrics-Feed finanzierbar ist — kein Ersatzbau, der echte Daten vortäuscht.</li>
+        <li><strong>Cloudflare-Cron-Trigger noch nicht live.</strong> Code fertig, Deployment mit eigenen Zugangsdaten steht aus.</li>
+        <li><strong>Pattern/Entry-Engine ist Prototyp.</strong> Portiert und verifiziert, aber bewusst noch nicht in den produktiven Scan eingehängt.</li>
+        <li><strong>MSE-Regime und IOS-Market-Score können sich widersprechen.</strong> Beide sind methodisch unabhängig — das ist derzeit noch nicht ausreichend erklärt im UI. Steht dokumentiert im Backlog.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="callout" style="border-left-color:var(--green)">
+        <strong>Warum das hierher gehört</strong>
+        <p style="margin-top:.6rem">Dieselbe Haltung wie am 06.07.: eine ehrliche Grenz­kommunikation ist der schnellste Weg zu Glaubwürdigkeit.</p>
+        <p style="margin-top:.6rem">Diese Woche hat gezeigt, dass das Prinzip nicht nur behauptet, sondern gegen echte Funde durchgehalten wurde — auch wenn der Fund unbequem war (DIX/GEX-Heuristik betraf eine sichtbare, bereits genutzte Kennzahl).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 15: UIQ-ROADMAP -->
+<section class="slide">
+  <div class="eyebrow">UIQ-Roadmap</div>
+  <h1>Phasen mit Reifekriterien — unverändert das Prinzip.</h1>
+  <p>Jede Phase hat einen harten Übergang, ausgelöst durch eine messbare Metrik, nicht durch ein Datum.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.4rem">
+    <div class="card" style="border-color:var(--green)">
+      <div class="label" style="color:var(--green)">Phase 0.5 · Läuft</div>
+      <h3 style="margin-top:.4rem">Datenfundament</h3>
+      <p style="font-size:14px;line-height:1.45">Single-Source-of-Truth, Z-Score-Kontext, FRED-Makro, Halluzinations-Blocker aktiv verifiziert. Diese Woche größtenteils abgeschlossen.</p>
+      <p style="font-size:12px;color:var(--text3);margin-top:.6rem"><strong style="color:var(--text2)">Reifekriterium:</strong> stabiler Lauf über mehrere Tage ohne neue kritische Funde</p>
+    </div>
+    <div class="card" style="border-color:var(--accent)">
+      <div class="label" style="color:var(--accent)">Phase 1 · Als Nächstes</div>
+      <h3 style="margin-top:.4rem">Geschlossene Beta</h3>
+      <p style="font-size:14px;line-height:1.45">Erste hit30-Auswertung ab ~16.07. Cloudflare-Cron-Trigger live. Pattern/Entry-Engine-Integrationsentscheidung.</p>
+      <p style="font-size:12px;color:var(--text3);margin-top:.6rem"><strong style="color:var(--text2)">Reifekriterium:</strong> stabile hit30-Trefferquote über mehrere Regime-Wechsel</p>
+    </div>
+    <div class="card" style="border-color:var(--violet)">
+      <div class="label" style="color:var(--violet)">Phase 2 · Parallel</div>
+      <h3 style="margin-top:.4rem">Kommerzialisierung</h3>
+      <p style="font-size:14px;line-height:1.45">BaFin-Prüfpfad, StBerG-Abgrenzung — unverändert regulatorisch, nicht produktisch getrieben.</p>
+      <p style="font-size:12px;color:var(--text3);margin-top:.6rem"><strong style="color:var(--text2)">Reifekriterium:</strong> rechtliche Freigabepfade dokumentiert</p>
+    </div>
+    <div class="card" style="border-color:var(--amber)">
+      <div class="label" style="color:var(--amber)">Phase 3 · Q4 2026</div>
+      <h3 style="margin-top:.4rem">Launch &amp; Ausbau</h3>
+      <p style="font-size:14px;line-height:1.45">Vite/React-Migration (v2.0), Suite-Design-System, öffentliche Web-Präsenz. SqueezeMetrics-Umstellung, sobald finanzierbar.</p>
+      <p style="font-size:12px;color:var(--text3);margin-top:.6rem"><strong style="color:var(--text2)">Reifekriterium:</strong> belegter Track-Record als Launch-Asset</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Was das ausschließt:</strong> unverändert — kein Feature-Rollout gegen einen Wunschtermin. Wenn ein Kriterium sich verschiebt, verschiebt sich die Phase, nicht das Kriterium.
+  </div>
+</section>
+
+<!-- 16: DIESE WOCHE IN ZAHLEN -->
+<section class="slide">
+  <div class="eyebrow">Diese Woche in Zahlen</div>
+  <h1>Was „intensive Testphase" konkret bedeutet.</h1>
+  <div class="grid-metrics" style="margin-top:1rem">
+    <div class="card"><div class="label">Frontend-Versionen</div><div class="num">v273→v297</div><div class="cap">24 Deployments seit Mo.</div></div>
+    <div class="card"><div class="label">Aggregator</div><div class="num">v4.7→v4.9</div><div class="cap">Snapshot, Z-Scores, FRED, MOVE</div></div>
+    <div class="card"><div class="label">Kritische Bugs gefunden</div><div class="num">8</div><div class="cap">alle noch vor Livebetrieb behoben</div></div>
+    <div class="card"><div class="label">Neue Makro-Parameter</div><div class="num">6</div><div class="cap">HY-Spread, Net Liquidity, Zinskurve, MOVE, Z-Scores, Divergenz-Signal</div></div>
+  </div>
+  <div class="callout" style="margin-top:1.4rem">
+    <strong>Der eigentliche Fortschritt ist nicht die Zahl der Deployments.</strong> Er liegt darin, dass jeder gefundene Fehler zu einer dokumentierten, nachvollziehbaren Korrektur wurde — nicht zu einer stillen Anpassung.
+  </div>
+</section>
+
+<!-- 17: FRAGEN -->
+<section class="slide">
+  <div class="eyebrow">Diskussion</div>
+  <h1 class="title" style="font-size:64px;margin-top:1.5rem">Fragen.</h1>
+  <p style="font-size:22px;margin-top:1.6rem;max-width:820px">Besonders willkommen: kritische Punkte zu Datenpfad, QA-Prozess, Halluzinations­kontrolle, UX-Priorisierung — und diese Woche neu: Feedback zur ehrlichen DIX/GEX-Kennzeichnung. Genau eure Berufs­perspektive ist die richtige Prüf­instanz.</p>
+  <div style="margin-top:auto;display:flex;flex-direction:column;gap:.4rem">
+    <p class="small" style="margin:0">underlyingiq.com · v297 · 11. Juli 2026</p>
+    <p class="small" style="margin:0">Repository (öffentlich, Aggregator): github.com/ahsub/ko-aggregator</p>
+    <p class="small" style="margin:0">Diese Präsentation: github.com/ahsub/uiq-presentations</p>
+  </div>
+</section>
+
+</div>
+
+<div class="hint">← → · Space · F Vollbild · ESC Übersicht · P Druck/PDF</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var deck = document.getElementById('deck');
+  var progress = document.getElementById('progress');
+  var idx = 0;
+  function show(i){
+    idx = Math.max(0, Math.min(slides.length-1, i));
+    slides.forEach(function(s,k){ s.classList.toggle('active', k===idx); });
+    progress.style.width = ((idx+1)/slides.length*100)+'%';
+    var f = slides[idx].querySelector('.footer');
+    if(!f){
+      f = document.createElement('div'); f.className='footer';
+      f.innerHTML = '<span>UnderlyingIQ · Strategie &amp; Roadmap</span><span>'+(idx+1)+' / '+slides.length+'</span>';
+      slides[idx].appendChild(f);
+    }
+    try { if(location.hash !== '#'+(idx+1)) history.replaceState(null,'','#'+(idx+1)); } catch(_){}
+  }
+  function next(){ show(idx+1); }
+  function prev(){ show(idx-1); }
+  document.addEventListener('keydown', function(e){
+    if(deck.classList.contains('overview')){
+      if(e.key==='Escape' || e.key==='Enter' || e.key===' '){ deck.classList.remove('overview'); e.preventDefault(); }
+      return;
+    }
+    if(e.key==='ArrowRight' || e.key==='PageDown' || e.key===' '){ next(); e.preventDefault(); }
+    else if(e.key==='ArrowLeft' || e.key==='PageUp'){ prev(); e.preventDefault(); }
+    else if(e.key==='Home'){ show(0); }
+    else if(e.key==='End'){ show(slides.length-1); }
+    else if(e.key==='f' || e.key==='F'){
+      if(!document.fullscreenElement){ document.documentElement.requestFullscreen(); } else { document.exitFullscreen(); }
+    }
+    else if(e.key==='Escape'){ deck.classList.add('overview'); }
+    else if(e.key==='p' || e.key==='P'){ window.print(); }
+  });
+  deck.addEventListener('click', function(e){
+    if(deck.classList.contains('overview')){
+      var s = e.target.closest('section.slide');
+      if(s){ var k = slides.indexOf(s); if(k>=0){ show(k); deck.classList.remove('overview'); } }
+    }
+  });
+  // Swipe (Touch)
+  var tx=null;
+  document.addEventListener('touchstart',function(e){ tx = e.touches[0].clientX; });
+  document.addEventListener('touchend',function(e){
+    if(tx===null) return;
+    var dx = (e.changedTouches[0].clientX - tx);
+    if(Math.abs(dx)>50){ (dx<0?next:prev)(); }
+    tx=null;
+  });
+  var initial = 0; try { var m=(location.hash||'').match(/#(\d+)/); if(m) initial = parseInt(m[1],10)-1; } catch(_){}
+  show(isNaN(initial)?0:initial);
+})();
+</script>
+</body>
+</html>
