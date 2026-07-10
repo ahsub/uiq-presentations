@@ -6,6 +6,7 @@ Versionierte Präsentationsunterlagen zur Investment-Suite von Dr. Axel Hildebra
 
 | Datum | Titel | Anlass |
 |---|---|---|
+| 2026-07-11 | [Strategie & Roadmap](2026-07-11-uiq-strategie-roadmap.html) | Update seit 06.07.: Single Source of Truth, Deep-Reasoning-Makroanalyse, DIX/GEX-Ehrlichkeit, Pattern/Entry-Engine-Ausblick |
 | 2026-07-06 | [Engineering-Vorstellung](2026-07-06-suite-vorstellung.html) | Interne Vorstellung UIQ + Suite-Kontext |
 
 ## Bedienung (HTML-Slides)
