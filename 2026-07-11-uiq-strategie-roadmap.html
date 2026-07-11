@@ -238,6 +238,28 @@ code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:
   </div>
 </section>
 
+<!-- 5b: FINRA-DIX DURCHBRUCH (NEU) -->
+<section class="slide">
+  <div class="eyebrow">Derselbe Abend · Vom Mangel zum echten Ersatz</div>
+  <h1>Die Lücke von eben — noch am selben Abend echt geschlossen.</h1>
+  <div class="cols">
+    <div>
+      <p>Ausgangspunkt: ein Freund schickte acht Pine-Script-Indikatoren zur fachlichen Prüfung. Einer davon nutzte eine Datenquelle, von der wir nichts wussten — <strong>FINRAs offizielle, kostenlose Query-API</strong> für tägliche Short-Sale-Volumen-Daten, Nachfolger der alten, mittlerweile abgeschalteten Rohdatei-Methode.</p>
+      <p style="margin-top:.6rem">Drei Iterationen (Feldnamen falsch geraten → Format korrigiert → Pagination ergänzt), dann lief es produktiv — verifiziert über mehrere unabhängige Aggregator-Läufe, auch im heutigen Normalbetrieb.</p>
+    </div>
+    <div>
+      <div class="card">
+        <div class="label">Live-Ergebnis, produktiv seit heute Nacht</div>
+        <p style="font-size:20px;margin-top:.4rem"><strong>DIX (ETF-Korb): 57.4%</strong></p>
+        <p style="font-size:14px;color:var(--text3);margin-top:.4rem">SPY 54.8% · QQQ 62.6% · IWM 55.6% · DIA 66.5% — echte FINRA-Daten, keine Schätzung</p>
+      </div>
+      <div class="callout" style="margin-top:1rem">
+        <strong>Ehrlich eingeordnet:</strong> Höher als SqueezeMetrics' klassischer DIX (~35-50%), weil wir 4 hochliquide ETFs statt ~550 S&amp;P-500-Aktien messen — ETFs haben strukturell mehr Dark-Pool-Anteil. Label wird entsprechend "DIX-ETF-Proxy", nicht 1:1 gleichgesetzt. Frontend-Integration folgt nach heute.
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 6: WEITERE FUNDE DIESE WOCHE -->
 <section class="slide">
   <div class="eyebrow">QA-Praxis, konkret</div>
@@ -314,11 +336,11 @@ code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:
 <!-- 9: ZUVERLÄSSIGKEIT DER PIPELINE -->
 <section class="slide">
   <div class="eyebrow">Betriebssicherheit</div>
-  <h1>Wenn der nächtliche Lauf zweimal ausbleibt.</h1>
+  <h1>Wenn der nächtliche Lauf ausbleibt — ohne Vorwarnung.</h1>
   <div class="cols">
     <div>
       <p>GitHub Actions' eigener Zeitplan-Trigger läuft explizit auf „Best Effort"-Basis — ohne Garantie und ohne Fehlermeldung bei Ausfall. Genau das ist zweimal in Folge passiert (Nacht 08./09.07. und 09./10.07.).</p>
-      <p style="margin-top:.6rem">Beide Male manuell nachgeholt, kein Datenverlust — aber ein struktureller Zuverlässigkeits­punkt, kein Zufall.</p>
+      <p style="margin-top:.6rem">Beide Male manuell nachgeholt, kein Datenverlust — heute Nacht lief der planmäßige Lauf wieder pünktlich. Das zeigt: kein dauerhafter Defekt, aber eben auch keine Garantie — genau das macht eine Redundanz sinnvoll, nicht optional.</p>
     </div>
     <div>
       <h3>Lösung: redundanter Trigger</h3>
