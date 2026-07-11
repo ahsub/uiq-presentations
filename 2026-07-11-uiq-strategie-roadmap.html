@@ -246,6 +246,12 @@ code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:
     <div>
       <p>Ausgangspunkt: ein Freund schickte acht Pine-Script-Indikatoren zur fachlichen Prüfung. Einer davon nutzte eine Datenquelle, von der wir nichts wussten — <strong>FINRAs offizielle, kostenlose Query-API</strong> für tägliche Short-Sale-Volumen-Daten, Nachfolger der alten, mittlerweile abgeschalteten Rohdatei-Methode.</p>
       <p style="margin-top:.6rem">Drei Iterationen (Feldnamen falsch geraten → Format korrigiert → Pagination ergänzt), dann lief es produktiv — verifiziert über mehrere unabhängige Aggregator-Läufe, auch im heutigen Normalbetrieb.</p>
+      <h3 style="margin-top:1.2rem">Ausblick — die nächsten drei Schritte</h3>
+      <ul>
+        <li><strong>Frontend-Label</strong> „DIX (ETF-Korb)" statt nackt „DIX" + korrekte Prompt-Einordnung</li>
+        <li><strong>Ticker-Universum prüfen</strong> — lohnt sich eine Ausweitung über SPY/QQQ/IWM/DIA hinaus? Pagination ist bereits gebaut, nur mehr API-Calls nötig</li>
+        <li><strong>GEX-Pendant</strong>: dieselbe FINRA-Recherche hat nebenbei eine mögliche IBKR-Optionsketten-Alternative zu Quiver Quant aufgeworfen (Axel hat den Zugang bereits) — noch zu verifizieren</li>
+      </ul>
     </div>
     <div>
       <div class="card">
@@ -254,7 +260,7 @@ code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:
         <p style="font-size:14px;color:var(--text3);margin-top:.4rem">SPY 54.8% · QQQ 62.6% · IWM 55.6% · DIA 66.5% — echte FINRA-Daten, keine Schätzung</p>
       </div>
       <div class="callout" style="margin-top:1rem">
-        <strong>Ehrlich eingeordnet:</strong> Höher als SqueezeMetrics' klassischer DIX (~35-50%), weil wir 4 hochliquide ETFs statt ~550 S&amp;P-500-Aktien messen — ETFs haben strukturell mehr Dark-Pool-Anteil. Label wird entsprechend "DIX-ETF-Proxy", nicht 1:1 gleichgesetzt. Frontend-Integration folgt nach heute.
+        <strong>Ehrlich eingeordnet:</strong> Höher als SqueezeMetrics' klassischer DIX (~35-50%), weil wir 4 hochliquide ETFs statt ~550 S&amp;P-500-Aktien messen — ETFs haben strukturell mehr Dark-Pool-Anteil. Label wird entsprechend "DIX-ETF-Proxy", nicht 1:1 gleichgesetzt.
       </div>
     </div>
   </div>
@@ -394,7 +400,7 @@ code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:
     <div>
       <h3 style="color:var(--red)">Wozu explizit <em>nicht</em></h3>
       <ul>
-        <li><strong>DIX/GEX</strong> — dürfen in keinem Prompt mehr erwähnt werden, wenn keine echten Daten vorliegen (statt „vermutlich niedrig" zu raten)</li>
+        <li><strong>GEX auf Marktebene (SPY/QQQ-Strikes)</strong> — darf nicht erwähnt werden, solange keine echten Daten vorliegen (statt „vermutlich niedrig" zu raten). DIX ist seit heute Nacht real (FINRA) und darf entsprechend gekennzeichnet auftauchen.</li>
         <li>Zahlen, Kursziele, Kennzahlen erfinden — unverändert</li>
       </ul>
     </div>
@@ -426,8 +432,8 @@ code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:
     </div>
     <div class="card">
       <div class="label">Dark-Pool-Tab</div>
-      <h3 style="margin-top:.6rem">Ehrlich umbenannt</h3>
-      <p style="font-size:15px">„Volumen-Heuristik" statt „DIX-Proxy" — sichtbares Beispiel für den heutigen Vortrags-Schwerpunkt.</p>
+      <h3 style="margin-top:.6rem">Ehrlich umbenannt + echter Ersatz</h3>
+      <p style="font-size:15px">„Volumen-Heuristik" statt „DIX-Proxy" — plus seit heute Nacht der echte FINRA-DIX (Frontend-Anzeige folgt).</p>
     </div>
     <div class="card">
       <div class="label">Scanner-Tab</div>
@@ -482,7 +488,7 @@ code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:
     <div>
       <ul>
         <li><strong>Kein Track Record vor dem 16.07.</strong> Die Uhr läuft seit 02.07.; 7 von mindestens 10 Handelstagen bis zur ersten Auswertung sind um.</li>
-        <li><strong>DIX/GEX bleiben Heuristik.</strong> Bewusst offengehalten, bis ein echter SqueezeMetrics-Feed finanzierbar ist — kein Ersatzbau, der echte Daten vortäuscht.</li>
+        <li><strong>GEX auf Marktebene bleibt Heuristik.</strong> DIX hat seit heute Nacht einen echten Ersatz (FINRA) — GEX für SPY/QQQ-Strikes braucht weiterhin entweder Quiver Quant (~20€/Monat) oder eine noch zu verifizierende IBKR-Optionsketten-Alternative.</li>
         <li><strong>Cloudflare-Cron-Trigger noch nicht live.</strong> Code fertig, Deployment mit eigenen Zugangsdaten steht aus.</li>
         <li><strong>Pattern/Entry-Engine ist Prototyp.</strong> Portiert und verifiziert, aber bewusst noch nicht in den produktiven Scan eingehängt.</li>
         <li><strong>MSE-Regime und IOS-Market-Score können sich widersprechen.</strong> Beide sind methodisch unabhängig — das ist derzeit noch nicht ausreichend erklärt im UI. Steht dokumentiert im Backlog.</li>
@@ -514,7 +520,7 @@ code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:
     <div class="card" style="border-color:var(--accent)">
       <div class="label" style="color:var(--accent)">Phase 1 · Als Nächstes</div>
       <h3 style="margin-top:.4rem">Geschlossene Beta</h3>
-      <p style="font-size:14px;line-height:1.45">Erste hit30-Auswertung ab ~16.07. Cloudflare-Cron-Trigger live. Pattern/Entry-Engine-Integrationsentscheidung.</p>
+      <p style="font-size:14px;line-height:1.45">Erste hit30-Auswertung ab ~16.07. Cloudflare-Cron-Trigger live. Pattern/Entry-Engine-Integrationsentscheidung. FINRA-DIX ins Frontend/Prompt, Ticker-Universum-Ausweitung prüfen.</p>
       <p style="font-size:12px;color:var(--text3);margin-top:.6rem"><strong style="color:var(--text2)">Reifekriterium:</strong> stabile hit30-Trefferquote über mehrere Regime-Wechsel</p>
     </div>
     <div class="card" style="border-color:var(--violet)">
@@ -526,7 +532,7 @@ code, .mono{font-family:var(--mono);font-size:15px;color:var(--text);background:
     <div class="card" style="border-color:var(--amber)">
       <div class="label" style="color:var(--amber)">Phase 3 · Q4 2026</div>
       <h3 style="margin-top:.4rem">Launch &amp; Ausbau</h3>
-      <p style="font-size:14px;line-height:1.45">Vite/React-Migration (v2.0), Suite-Design-System, öffentliche Web-Präsenz. SqueezeMetrics-Umstellung, sobald finanzierbar.</p>
+      <p style="font-size:14px;line-height:1.45">Vite/React-Migration (v2.0), Suite-Design-System, öffentliche Web-Präsenz. Echtes GEX auf Marktebene: entweder Quiver Quant (~20€/mo) oder — neu entdeckt — IBKR-Optionsketten-API (bereits vorhanden, noch zu verifizieren) als günstigere Alternative.</p>
       <p style="font-size:12px;color:var(--text3);margin-top:.6rem"><strong style="color:var(--text2)">Reifekriterium:</strong> belegter Track-Record als Launch-Asset</p>
     </div>
   </div>
